@@ -1,2 +1,2 @@
 # sonictoken
-A Sonic/Ultrasonic 2-step authentication module
+A Sonic/Ultrasonic 2-factor authentication module
