@@ -7,29 +7,31 @@ if (Meteor.isClient) {
   sserver.on('message', function(message) {
     // message is '31415'. Do something with it.
     console.log(message);
+    Session.set('counter', Session.get('counter') + 1);
     MessageReceived.insert({message: message});
   });
-  sserver.start();
   
-  Template.hello.helpers({
+  sserver.start();
+  Template.showToken.onCreated(function() {
+    this.subscribe("messages");
+  });
+  
+  Template.showToken.viewmodel('showToken',{
     counter: function () {
-      return Session.get('counter');
+      return "You have sent " +Session.get('counter') + " tokens";
     },
     messages: function() {
       return MessageReceived.find();
     }
+  }, 'messages'
+  );
+  
+  Template.message.viewmodel(function(data) {
+    return {
+      message: function() {
+        return "Token Received: " + data.message;
+      }
+     };
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
-}
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
 }

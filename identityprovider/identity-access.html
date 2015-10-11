@@ -3,21 +3,12 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Welcome to Meteor Hackathon 2015 held at Cabarete!</h1>
 
-  {{> hello}}
+  {{> sendToken}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-  <ul>
-    {{# each messages}}
-      {{> message}}
-    {{/ each}}
-  </ul>
-</template>
-
-<template name="message">
-  <li>mensaje recibido: {{message}}</li>
+<template name="sendToken">
+  <button data-bind="click: sendToken">Send Token</button>
+  <p data-bind="text: counter"></p>
 </template>
