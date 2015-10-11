@@ -1,14 +1,37 @@
-  var MESSAGE = '314159';
+var ALPHABET = "abcdefABCDEF0123456789";
+Meteor.subscribe('totpkey');
+ssocket = new SonicSocket({alphabet: ALPHABET,freqMin: 440, freqMax: 1760, charDuration: 0.6});
 
-  // counter starts at 0
-  Session.setDefault('counter', 0);
 
   Template.sendToken.viewmodel({
     sendToken: function() {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-      ssocket = new SonicSocket({freqMin: 440, freqMax: 1760});
-      ssocket.send(MESSAGE);
+      Meteor.call('codeTOTP', Session.get('token'), function (error, result) {
+        if (error)
+           console.log(error)
+        if (result){
+          Session.set("code", result);
+          ssocket.send(result);
+        }
+      })
+    },
+    createToken: function() {
+      console.log('calling createToken');
+      Meteor.call('generateKey', function(error, result) {
+        console.log(result);
+        if (error)
+            console.log(error);
+        if (result.hex){
+          Session.set('token', result.hex);
+          ssocket.send(result.hex);
+        }
+
+      });
+    },
+    message: function() {
+        return Session.get('token');
+    },
+    code: function() {
+        return Session.get('code');
     }
   });
 

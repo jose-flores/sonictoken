@@ -9,6 +9,8 @@
 </body>
 
 <template name="sendToken">
+  <button data-bind="click: createToken">Create Token</button>
   <button data-bind="click: sendToken">Send Token</button>
-  <p data-bind="text: counter"></p>
+  <div data-bind="text: message"></div>
+  <div data-bind="text: code"></div>
 </template>

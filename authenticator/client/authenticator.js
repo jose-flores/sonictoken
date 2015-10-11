@@ -1,8 +1,8 @@
-  // counter starts at 0
+  var ALPHABET = "abcdefABCDEF0123456789";
   MessageReceived = new Mongo.Collection(null);
   Session.setDefault('counter', 0);
   // On some other machine:
-  sserver = new SonicServer({freqMin: 440, freqMax: 1760});
+  sserver = new SonicServer({alphabet: ALPHABET, freqMin: 440, freqMax: 1760});
   sserver.on('message', function(message) {
     // message is '31415'. Do something with it.
     console.log(message);
@@ -16,9 +16,6 @@
   });
   
   Template.showToken.viewmodel('showToken',{
-    counter: function () {
-      return "You have sent " +Session.get('counter') + " tokens";
-    },
     messages: function() {
       return MessageReceived.find();
     }
