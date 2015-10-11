@@ -1,4 +1,3 @@
-if (Meteor.isClient) {
   // counter starts at 0
   MessageReceived = new Mongo.Collection(null);
   Session.setDefault('counter', 0);
@@ -34,4 +33,3 @@ if (Meteor.isClient) {
      };
   });
 
-}

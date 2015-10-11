@@ -1,4 +1,3 @@
-if (Meteor.isClient) {
   var MESSAGE = '314159';
 
   // counter starts at 0
@@ -13,5 +12,4 @@ if (Meteor.isClient) {
     }
   });
 
-}
 
